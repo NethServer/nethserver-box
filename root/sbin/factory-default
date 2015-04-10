@@ -1,0 +1,12 @@
+#!/bin/bash
+
+part=`/bin/df | /bin/grep -e '/$' | /bin/awk '{ print $1 }'`
+disk=${part%?}
+
+grub --no-floppy --batch <<EOT
+device (hd0) $disk
+root (hd0,0)
+setup (hd0)
+quit
+EOT
+reboot -f
