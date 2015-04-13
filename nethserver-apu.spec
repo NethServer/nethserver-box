@@ -1,6 +1,6 @@
 Summary: APU leds management
 Name: nethserver-apu
-Version: 0.0.1
+Version: 1.0.0
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -33,3 +33,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Mon Apr 13 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.0-1
+- Box APU: aggiunto supporto ai led e pulsante per spegnimento NH #3609
+
