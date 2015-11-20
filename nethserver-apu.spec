@@ -1,6 +1,6 @@
 Summary: APU leds management
 Name: nethserver-apu
-Version: 1.0.1
+Version: 1.0.2
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -33,6 +33,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Fri Nov 20 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.2-1
+- Limit clamd memory usage [NH:3965]
+
 * Tue Nov 17 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.1-1
 - Fix fstrim command
 
