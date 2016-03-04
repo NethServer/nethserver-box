@@ -1,6 +1,6 @@
 Summary: APU leds management
 Name: nethserver-apu
-Version: 1.0.2
+Version: 1.0.3
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -33,6 +33,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Fri Mar 04 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.3-1
+- Start apu-button daemon only on APU hardware [NH:4068]
+
 * Fri Nov 20 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.2-1
 - Limit clamd memory usage [NH:3965]
 
