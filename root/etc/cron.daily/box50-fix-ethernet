@@ -1,0 +1,10 @@
+#!/bin/bash
+# Refs: https://dev.nethesis.it/issues/4146
+
+spn=`/usr/sbin/dmidecode -qs system-product-name`
+if [ "$spn" = "To Be Filled By O.E.M." ]; then
+  proc=`/usr/sbin/dmidecode -qs processor-manufacturer`
+  if [[ "$proc" = Intel* ]]; then
+    /sbin/grubby --update-kernel=ALL --args="pcie_ports=compat" 
+  fi
+fi
