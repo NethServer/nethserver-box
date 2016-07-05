@@ -1,6 +1,6 @@
 Summary: APU leds management
 Name: nethserver-apu
-Version: 1.0.3
+Version: 1.0.4
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -33,6 +33,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Tue Jul 05 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.4-1
+- S50 box: avoid disappearing of ethernet interfaces [NH: 4146]
+
 * Fri Mar 04 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.3-1
 - Start apu-button daemon only on APU hardware [NH:4068]
 
