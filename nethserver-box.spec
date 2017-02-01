@@ -6,7 +6,7 @@ License: GPL
 BuildArch: noarch
 Source: %{name}-%{version}.tar.gz
 
-Requires: kmod-leds-apu
+Requires: kmod-leds-apu2
 
 BuildRequires: perl, nethserver-devtools
 

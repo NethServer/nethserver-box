@@ -1,15 +1,15 @@
 #!/bin/bash
 
 MODEL=`dmidecode -qs system-product-name`
-if [ "$MODEL" != "APU" ]; then
+if [ "$MODEL" != "APU2" ]; then
   exit 0
 fi
 
-modprobe leds-apu
+modprobe leds-apu2
 modprobe ledtrig-heartbeat
 modprobe ledtrig_default_on
 
 for i in 1 2 3
 do
-  echo heartbeat > /sys/class/leds/apu:$i/trigger
+  echo heartbeat > /sys/class/leds/apu2:$i/trigger
 done
