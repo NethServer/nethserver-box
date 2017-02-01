@@ -23,10 +23,10 @@ use esmith::Build::CreateLinks  qw(:all);
 use File::Path;
 
 #--------------------------------------------------
-# actions for nethserver-apu-update event
+# actions for nethserver-box-update event
 #--------------------------------------------------
 
-my $event = "nethserver-apu-update";
+my $event = "nethserver-box-update";
 
 templates2events("/etc/cron.daily/freshclam", $event);
 
