@@ -34,10 +34,6 @@ event_actions($event, qw(
               initialize-default-databases 00
 ));
 
-event_services($event, qw(
-   apu-button restart
-));
-
 #--------------------------------------------------
 # actions for system-init event
 #--------------------------------------------------
