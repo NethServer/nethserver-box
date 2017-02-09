@@ -1,6 +1,6 @@
 Summary: Nethesis box optimizations
 Name: nethserver-box
-Version: 1.0.4
+Version: 2.0.0
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -33,3 +33,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Thu Feb 09 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.0-1
+- First release for NS 7
+
