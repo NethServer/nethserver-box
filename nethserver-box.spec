@@ -1,6 +1,6 @@
 Summary: Nethesis box optimizations
 Name: nethserver-box
-Version: 2.0.2
+Version: 2.0.3
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -33,6 +33,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Fri Mar 10 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.3-1
+- Handle old bios revision for APU2
+
 * Fri Feb 24 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.2-1
 - Shutdown the system after system-init
 
