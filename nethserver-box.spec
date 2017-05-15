@@ -30,6 +30,7 @@ rm -rf $RPM_BUILD_ROOT
 %{genfilelist} $RPM_BUILD_ROOT > %{name}-%{version}-%{release}-filelist
 
 %files -f %{name}-%{version}-%{release}-filelist
+%dir %{_nseventsdir}/%{name}-update
 %defattr(-,root,root)
 
 %changelog
