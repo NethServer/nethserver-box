@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Remove clamav official database
+rm -f /var/lib/clamav/main.c?d /var/lib/clamav/daily.c?d
