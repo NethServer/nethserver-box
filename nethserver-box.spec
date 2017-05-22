@@ -1,6 +1,6 @@
 Summary: Nethesis box optimizations
 Name: nethserver-box
-Version: 2.0.3
+Version: 2.0.4
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -34,6 +34,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Mon May 22 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.4-1
+- Disable and remove standard clamav signatures - Nethesis/dev#5136
+
 * Fri Mar 10 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.3-1
 - Handle old bios revision for APU2
 
