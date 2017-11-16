@@ -5,13 +5,17 @@
 #
 
 config=$(/usr/libexec/nethserver/nic-info)
+hit=0
 
 while true
 do
-    sleep 5
+    sleep 2
     last_config=$(/usr/libexec/nethserver/nic-info)
     if [ -n "$last_config" ] && [ "$config" == "$last_config" ] ; then
-        break
+        hit=$((hit+1))
+        if [ $hit -gt 2 ]; then
+            break
+        fi
     else
         config=$last_config
     fi
