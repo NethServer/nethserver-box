@@ -1,6 +1,6 @@
 Summary: Nethesis box optimizations
 Name: nethserver-box
-Version: 2.0.4
+Version: 2.0.5
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -34,6 +34,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Fri Nov 17 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.5-1
+- Box: missing network configuration after first boot - Nethesis/dev#5253
+
 * Mon May 22 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.4-1
 - Disable and remove standard clamav signatures - Nethesis/dev#5136
 
