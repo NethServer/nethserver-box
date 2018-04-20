@@ -1,6 +1,6 @@
 Summary: Nethesis box optimizations
 Name: nethserver-box
-Version: 2.0.5
+Version: 2.0.6
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -34,6 +34,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Fri Apr 20 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.6-1
+- FS trim: use systemd timer
+
 * Fri Nov 17 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.5-1
 - Box: missing network configuration after first boot - Nethesis/dev#5253
 
