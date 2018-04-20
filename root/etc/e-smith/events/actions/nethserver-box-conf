@@ -2,3 +2,7 @@
 
 # Remove clamav official database
 rm -f /var/lib/clamav/main.c?d /var/lib/clamav/daily.c?d
+
+# Enable fstrim
+systemctl enable fstrim.timer
+systemctl start fstrim.timer

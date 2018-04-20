@@ -32,7 +32,7 @@ templates2events("/etc/sysconfig/freshclam", $event);
 
 event_actions($event, qw(
               initialize-default-databases 00
-              nethserver-box-clamav 30
+              nethserver-box-conf 30
 ));
 
 #--------------------------------------------------
