@@ -1,6 +1,6 @@
 Summary: Nethesis box optimizations
 Name: nethserver-box
-Version: 2.0.6
+Version: 2.0.7
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -34,6 +34,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Wed Jun 20 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.7-1
+- Box S60: panic at boot with kernel-3.10.0-862.3.3.el7.x86_64 - Bug nethesis/dev#5417
+
 * Fri Apr 20 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.6-1
 - FS trim: use systemd timer
 
