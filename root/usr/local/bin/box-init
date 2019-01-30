@@ -45,8 +45,11 @@ if [ -f /var/lib/nethserver/secrets/mysql ]; then
     rm -f /var/lib/nethserver/secrets/PhonebookDBPasswd
 fi
 
-# Stop led blinking
-/usr/local/bin/apu-leds stop
+# Stop and disable led blinking
+systemctl disable --now apu-leds
+
+# Disable firstboot for next run
+systemctl disable guestfs-firstboot
 
 # Cleanup logs
 rm -f /root/virt-sysprep-firstboot.log

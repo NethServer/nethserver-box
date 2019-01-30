@@ -5,6 +5,9 @@ Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
 Source: %{name}-%{version}.tar.gz
+Requires(post): systemd
+Requires(postun): systemd
+BuildRequires: systemd
 
 Requires: kmod-leds-apu2
 
@@ -20,9 +23,10 @@ Nethesis box optimizations
 perl createlinks
 
 %post
+%systemd_post apu-leds.service
 
-%preun
-
+%postun
+%systemd_postun
 
 %install
 rm -rf $RPM_BUILD_ROOT
