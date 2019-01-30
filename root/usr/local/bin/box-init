@@ -13,9 +13,6 @@ function fbx_query {
 # Start led blinking
 /etc/e-smith/events/actions/nethserver-apu-leds-start
 
-# Bring up green interface (required for NethVoice)
-perl -e 'use esmith::NetworksDB; $db = esmith::NetworksDB->open_ro(); $g = $db->green(); system("ifconfig ".$g->key." ".$g->prop("ipaddr")." up")';
-
 # Enable first configuration wizard
 /etc/e-smith/events/actions/enable-firstconfigwizard
 
