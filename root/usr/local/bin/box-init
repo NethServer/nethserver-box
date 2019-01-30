@@ -11,7 +11,7 @@ function fbx_query {
 # End functions
 
 # Start led blinking
-/etc/e-smith/events/actions/nethserver-apu-leds-start
+/usr/local/bin/apu-leds start
 
 # Enable first configuration wizard
 /etc/e-smith/events/actions/enable-firstconfigwizard
@@ -62,4 +62,4 @@ if [ -f /var/lib/nethserver/secrets/mysql ]; then
 fi
 
 # Stop led blinking
-/etc/e-smith/events/actions/nethserver-apu-leds-stop
+/usr/local/bin/apu-leds stop
