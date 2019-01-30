@@ -63,3 +63,6 @@ fi
 
 # Stop led blinking
 /usr/local/bin/apu-leds stop
+
+# Cleanup logs
+rm -f /root/virt-sysprep-firstboot.log
