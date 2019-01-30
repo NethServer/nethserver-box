@@ -43,7 +43,6 @@ $event = "system-init";
 
 event_actions($event, qw(
               nethserver-apu-leds-start 000
-	      nethserver-box-wait-udev  001
               nethserver-apu-leds-stop 99
               nethserver-box-shutdown 999
 ));
