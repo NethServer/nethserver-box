@@ -1,0 +1,68 @@
+#!/bin/bash
+
+#
+# Execute a shrinked system-init
+#
+
+# Functions
+function fbx_query {
+    mysql -uroot -p$2 asterisk -B --silent -e "$1"
+}
+# End functions
+
+# Start led blinking
+/etc/e-smith/events/actions/nethserver-apu-leds-start
+
+# Bring up green interface (required for NethVoice)
+perl -e 'use esmith::NetworksDB; $db = esmith::NetworksDB->open_ro(); $g = $db->green(); system("ifconfig ".$g->key." ".$g->prop("ipaddr")." up")';
+
+# Enable first configuration wizard
+/etc/e-smith/events/actions/enable-firstconfigwizard
+
+# Generate new SSL certificates
+rm -f /etc/pki/tls/certs/NSRV.crt /etc/pki/tls/private/NSRV.key
+/etc/e-smith/events/actions/nethserver-generate-certificate
+/sbin/e-smith/signal-event certificate-update
+
+# Grow root filesystem
+device=`/bin/lsblk -l | /bin/grep disk | /bin/awk '{print $1}'`
+/usr/bin/growpart /dev/$device 3 >/dev/null
+/usr/sbin/xfs_growfs  -d / >/dev/null
+
+# Reset NethVoice passwords
+if [ -f /var/lib/nethserver/secrets/mysql ]; then
+    cpwd=`cat /var/lib/nethserver/secrets/mysql`
+    rm -f /var/lib/nethserver/secrets/mysql
+    npwd=$(perl -mNethServer::Password -e "print NethServer::Password::store('mysql')")
+    mysql -uroot -p$cpwd mysql -e "UPDATE mysql.user SET Password = PASSWORD('$npwd') WHERE User = 'root' AND (Host = 'localhost' or Host = '127.0.0.1'); FLUSH PRIVILEGES;"
+
+    /sbin/e-smith/expand-template /root/.my.cnf
+
+    rm -f /var/lib/nethserver/secrets/JanusGateway
+    /sbin/e-smith/expand-template /opt/janus/etc/janus/janus.cfg
+
+    rm -f /var/lib/nethserver/secrets/CTIDBPasswd
+    /sbin/e-smith/expand-template /etc/nethcti/dbstatic.d/nethcti3.json
+
+    rm -f /var/lib/nethserver/secrets/NethctiManagerPasswd
+    ctipass=$(perl -mNethServer::Password -e "print NethServer::Password::store('NethctiManagerPasswd')")
+    fbx_query 'UPDATE `manager` set secret="'$ctipass'" WHERE name="proxycti"' $npwd
+    fbx_query 'UPDATE `arimanager` SET `password`="'$ctipass'" WHERE `name`="proxycti"' $npwd
+    scl enable rh-php56 -- fwconsole r
+    /sbin/e-smith/expand-template /etc/nethcti/asterisk.json
+
+    rm -f /var/lib/nethserver/secrets/nethvoice
+    /sbin/e-smith/expand-template /var/www/html/freepbx/rest/config.inc.php
+    /sbin/e-smith/expand-template /var/www/html/freepbx/wizard/scripts/custom.js
+
+    rm -f /var/lib/nethserver/secrets/PhonebookDBPasswd
+    pbook_password=$(perl -e "use NethServer::Password; my \$password = NethServer::Password::store('PhonebookDBPasswd')  ; printf \$password;")
+    fbx_query 'UPDATE IGNORE `inboundlookup` SET `mysql_password` = '\'$pbook_password\'' WHERE `mysql_host` = '\''localhost'\'' AND `mysql_dbname` = '\''phonebook'\''' $npwd
+    fbx_query 'UPDATE IGNORE `outboundlookup` SET `mysql_password` = '\'$pbook_password\'' WHERE `mysql_host` = '\''localhost'\'' AND `mysql_dbname` = '\''phonebook'\''' $npwd
+    /sbin/e-smith/expand-template /etc/nethcti/dbstatic.d/phonebook.json
+
+    systemctl restart nethcti-server
+fi
+
+# Stop led blinking
+/etc/e-smith/events/actions/nethserver-apu-leds-stop
