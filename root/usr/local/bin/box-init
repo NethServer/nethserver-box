@@ -10,9 +10,6 @@ function fbx_query {
 }
 # End functions
 
-# Start led blinking
-/usr/local/bin/apu-leds start
-
 # Enable first configuration wizard
 /etc/e-smith/events/actions/enable-firstconfigwizard
 
