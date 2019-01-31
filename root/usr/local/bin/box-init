@@ -23,6 +23,9 @@ device=`/bin/lsblk -l | /bin/grep disk | /bin/awk '{print $1}'`
 /usr/bin/growpart /dev/$device 3 >/dev/null
 /usr/sbin/xfs_growfs  -d / >/dev/null
 
+# Fix DNS servers
+/sbin/e-smith/config setprop dns NameServers 208.67.222.222,208.67.220.220
+
 # Reset NethVoice passwords
 if [ -f /var/lib/nethserver/secrets/mysql ]; then
 
