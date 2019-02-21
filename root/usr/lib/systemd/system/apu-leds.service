@@ -1,6 +1,7 @@
 [Unit]
 Description=Start and stop apu led blinking
 Before=nethserver-config-network.service
+ConditionPathExists=/etc/systemd/system/multi-user.target.wants/guestfs-firstboot.service
 
 [Service]
 Type=oneshot
