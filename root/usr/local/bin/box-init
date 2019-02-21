@@ -1,0 +1,55 @@
+#!/bin/bash
+
+#
+# Execute a shrinked system-init
+#
+
+# Functions
+function fbx_query {
+    mysql -uroot -p$2 asterisk -B --silent -e "$1"
+}
+# End functions
+
+# Enable first configuration wizard
+/etc/e-smith/events/actions/enable-firstconfigwizard
+
+# Generate new SSL certificates
+rm -f /etc/pki/tls/certs/NSRV.crt /etc/pki/tls/private/NSRV.key
+/etc/e-smith/events/actions/nethserver-generate-certificate
+/sbin/e-smith/signal-event certificate-update
+
+# Grow root filesystem
+device=`/bin/lsblk -l | /bin/grep disk | /bin/awk '{print $1}'`
+/usr/bin/growpart /dev/$device 3 >/dev/null
+/usr/sbin/xfs_growfs  -d / >/dev/null
+
+# Fix DNS servers
+/sbin/e-smith/config setprop dns NameServers 208.67.222.222,208.67.220.220
+
+# Reset NethVoice passwords
+if [ -f /var/lib/nethserver/secrets/mysql ]; then
+
+    # Reset mysql password
+    cpwd=`cat /var/lib/nethserver/secrets/mysql`
+    rm -f /var/lib/nethserver/secrets/mysql
+    npwd=$(perl -mNethServer::Password -e "print NethServer::Password::store('mysql')")
+    mysql -uroot -p$cpwd mysql -e "UPDATE mysql.user SET Password = PASSWORD('$npwd') WHERE User = 'root' AND (Host = 'localhost' or Host = '127.0.0.1'); FLUSH PRIVILEGES;"
+    /sbin/e-smith/expand-template /root/.my.cnf
+
+    # Delete all remaining passwords
+    # Each password will be regenerated after the wizard, inside the hostname-modify event
+    rm -f /var/lib/nethserver/secrets/JanusGateway
+    rm -f /var/lib/nethserver/secrets/CTIDBPasswd
+    rm -f /var/lib/nethserver/secrets/NethctiManagerPasswd
+    rm -f /var/lib/nethserver/secrets/nethvoice
+    rm -f /var/lib/nethserver/secrets/PhonebookDBPasswd
+fi
+
+# Stop and disable led blinking
+systemctl disable --now apu-leds
+
+# Disable firstboot for next run
+systemctl disable guestfs-firstboot
+
+# Cleanup logs
+rm -f /root/virt-sysprep-firstboot.log

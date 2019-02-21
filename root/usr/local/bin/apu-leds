@@ -1,0 +1,41 @@
+#!/bin/bash
+
+#
+# start and stop apu leds blinking
+#
+# Usage:
+#   apu-leds start
+#   apu-leds stop
+
+cmd=$1
+
+modprobe leds-apu2 2>/dev/null
+modprobe ledtrig-heartbeat 2>/dev/null
+modprobe ledtrig_default_on 2>/dev/null
+
+if [ -d /sys/class/leds/apu2:1/ ]; then
+    case $cmd in
+        "start")
+            for i in 1 2 3; do
+                echo heartbeat > /sys/class/leds/apu2:$i/trigger
+            done
+            ;;
+
+        "stop")
+            for i in 1 2 3; do
+                echo none > /sys/class/leds/apu2:$i/trigger
+            done
+            echo default-on > /sys/class/leds/apu2\:1/trigger
+            ;;
+        *)
+           echo "Command '$cmd' not supported. Supported commands are:"
+           echo " start : start blinking using heartbeat trigger"
+           echo " stop : stop blinking and turn on the first led"
+           exit 1
+           ;;
+    esac
+
+else
+    exit 1
+fi
+
