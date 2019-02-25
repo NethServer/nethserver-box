@@ -1,6 +1,6 @@
 Summary: Nethesis box optimizations
 Name: nethserver-box
-Version: 2.0.8
+Version: 3.0.0
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -27,6 +27,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Mon Feb 25 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.0.0-1
+- Ethernet cards down on boot - Bug NethServer/dev#5714
+- Refactor for new build system
+- Remove support for leds on APU
+
 * Thu Aug 02 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.8-1
 - Box: ethernet down at boot - Nethesis/dev#5442
 
