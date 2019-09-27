@@ -28,8 +28,6 @@ use File::Path;
 
 my $event = "nethserver-box-update";
 
-templates2events("/etc/sysconfig/freshclam", $event);
-
 event_actions($event, qw(
               initialize-default-databases 00
               nethserver-box-conf 30
