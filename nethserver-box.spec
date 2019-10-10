@@ -1,6 +1,6 @@
 Summary: Nethesis box optimizations
 Name: nethserver-box
-Version: 3.1.0
+Version: 3.1.1
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -27,6 +27,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Thu Oct 10 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.1.1-1
+- Remove workaround for kernel 3.10.0-862 - Nethesis/dev#5417
+
 * Fri Sep 27 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.1.0-1
 - Antivirus: improve memory usage - NethServer/dev#5803
 
