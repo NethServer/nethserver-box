@@ -26,6 +26,9 @@ device=`/bin/lsblk -l | /bin/grep disk | /bin/awk '{print $1}'`
 # Fix DNS servers
 /sbin/e-smith/config setprop dns NameServers 208.67.222.222,208.67.220.220
 
+# Reset phone home
+/sbin/e-smith/config setprop phone-home uuid ''
+
 # Reset NethVoice passwords
 if [ -f /var/lib/nethserver/secrets/mysql ]; then
 
