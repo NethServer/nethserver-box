@@ -1,6 +1,6 @@
 Summary: Nethesis box optimizations
 Name: nethserver-box
-Version: 3.2.0
+Version: 3.2.1
 Release: 1%{?dist}
 License: GPL
 BuildArch: noarch
@@ -27,6 +27,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Tue Nov 26 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.2.1-1
+- Fix error on clamd forced key
+
 * Fri Nov 22 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.2.0-1
 - Reset phone-home uuid
 - Remove dracut custom conf - NethServer/nethserver-box#6
